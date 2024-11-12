@@ -17,6 +17,7 @@ class TasksViewController: UIViewController {
         table.dataSource = self
         table.layer.cornerRadius = 24
         let header = TasksTableViewHeader(frame: .init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 64.0))
+        header.delegate = self
         table.tableHeaderView = header
         return table
     }()
@@ -90,3 +91,9 @@ extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension TasksViewController: TasksTableViewHeaderDelegate {
+    func didTapAddTaskButton() {
+        let addTaskVC = AddTaskViewController()
+        navigationController?.pushViewController(addTaskVC, animated: true)
+    }
+}
