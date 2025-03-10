@@ -94,6 +94,6 @@ extension TasksViewController: UITableViewDelegate, UITableViewDataSource {
 extension TasksViewController: TasksTableViewHeaderDelegate {
     func didTapAddTaskButton() {
         let addTaskVC = AddTaskViewController()
-        navigationController?.pushViewController(addTaskVC, animated: true)
+        navigationController?.present(addTaskVC, animated: true)
     }
 }
