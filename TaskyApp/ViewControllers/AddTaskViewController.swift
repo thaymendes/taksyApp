@@ -9,6 +9,7 @@ import UIKit
 
 class AddTaskViewController: UIViewController {
     
+    weak var delegate: TaskDelegate?
     
     private lazy var addNewTaskLabel: UILabel = {
         let label = UILabel()
@@ -105,7 +106,25 @@ class AddTaskViewController: UIViewController {
         ])
     }
     
+    private func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alertController.addAction(okAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
     @objc private func didTapSaveTaskButton() {
+        guard let title = titleTextField.text, !title.isEmpty else {
+            showAlert(title: "Oops!", message: "Por favor, insira um título para a tarefa.")
+            return
+        }
+        let newTask = Task(title: title, description: descriptionTextField.text)
+        delegate?.didAddTask(newTask: newTask)
+        
+        dismiss(animated: true)
+        
     }
     
 }
